@@ -42,9 +42,42 @@ h1 {
 .photographer_section article h2 {
     color: #D3573C;
     font-size: 36px;
+    font-weight: 400;
+    margin-top: 15px;
+    margin-bottom: 0;
 }
 
 .photographer_section article img {
     height: 200px;
     width: 200px;
+    object-fit: cover;
+    border-radius: 200px;
+}
+
+.info_photographers {
+    text-align: center;
+}
+
+.info_photographers p{
+    margin: 0 0 5px 0;
+    padding: 0;
+}
+
+.info_photographers p:nth-child(1){
+    color: #901C1C;
+    font-size: .8rem;
+    
+}
+
+.info_photographers p:nth-child(2){
+  font-size: .7rem;
+}
+
+.info_photographers p:nth-child(3){
+    color: #757575;
+    font-size: .7rem;
+}
+
+:focus{
+    border: 2px solid #901C1C ;
 }
