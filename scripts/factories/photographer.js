@@ -7,28 +7,42 @@ export function photographerFactory(data) {
     function getUserCardDOM() {
         
         const article = document.createElement( 'article' );
+        const link = document.createElement('a');
         const img = document.createElement( 'img' );
         const info = document.createElement('div');
-        info.classList.add('info_photographers')
-        const infolocation = document.createElement('p')
-        const infoTagline = document.createElement('p')
-        const infoPrice = document.createElement('p')
+        info.classList.add('info_photographers');
+        const infoLocation = document.createElement('p');
+        const infoTagLine = document.createElement('p');
+        const infoPrice = document.createElement('p');
 
-        img.setAttribute("src", picture)
-        img.setAttribute("alt", name)
+
+        link.setAttribute("href",'#');
+        link.setAttribute("aria-label",`Profil de ${name}`)
+        img.setAttribute("src", picture);
+        img.setAttribute("alt", name);
+        img.setAttribute("aria-hidden",true);
         const h2 = document.createElement( 'h2' );
         h2.textContent = name;
-        article.appendChild(img);
-        article.appendChild(h2);
+        link.appendChild(img);
+        link.appendChild(h2);
 
-        infolocation.textContent = `${city}, ${country}`
-        infoTagline.textContent = tagline
+        infoLocation.textContent = `${city}, ${country}`
+        infoLocation.setAttribute("aria-label",`Localisation: ${city}, ${country}`)
+        infoLocation.setAttribute("tabindex",0);
+
+        infoTagLine.textContent = tagline
+        infoTagLine.setAttribute("aria-label",`Citation: ${tagline}`)
+        infoTagLine.setAttribute("tabindex",0);
+        
         infoPrice.textContent = `${price}€/jour`
+        infoPrice.setAttribute("aria-label",`Prix: ${price} euros par jour`)
+        infoPrice.setAttribute("tabindex",0);
 
-        info.appendChild(infolocation)
-        info.appendChild(infoTagline)
+        info.appendChild(infoLocation)
+        info.appendChild(infoTagLine)
         info.appendChild(infoPrice)
 
+        article.appendChild(link)
         article.appendChild(info)
         return (article);
     }
