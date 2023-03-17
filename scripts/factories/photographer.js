@@ -1,6 +1,6 @@
 export function photographerFactory(data) {
+    
     const { name, id, city, country, tagline, price, portrait } = data;
-    console.log(data)
 
     const picture = `assets/photographers/${portrait}`;
 
@@ -16,7 +16,7 @@ export function photographerFactory(data) {
         const infoPrice = document.createElement('p');
 
 
-        link.setAttribute("href",'#');
+        link.setAttribute("href",`photographer.html?id=${id}`);
         link.setAttribute("aria-label",`Profil de ${name}`)
         img.setAttribute("src", picture);
         img.setAttribute("alt", name);
@@ -46,7 +46,53 @@ export function photographerFactory(data) {
         article.appendChild(info)
         return (article);
     }
-    return { name, id, city, country, tagline, price, picture, getUserCardDOM }
-    
+    function getUserProfileDOM() {
+        const section = document.createElement('section')
+        const infos = document.createElement('div')
+        const infoName= document.createElement('h1')
+        const infoLocalisation = document.createElement('p')
+        const infoCitation = document.createElement('p')
+       
 
+        const image = document.createElement('img')
+
+        section.setAttribute("class",'photographer-profile')
+
+        infoName.textContent = name;
+        infoLocalisation.textContent = `${city}, ${country}`;
+        infoLocalisation.setAttribute("class",'info-localisation')
+        infoCitation.textContent = tagline;
+        infoCitation.setAttribute("class",'info-citation');
+
+        image.setAttribute("src", picture);
+        image.setAttribute("alt", name);
+        image.setAttribute("aria-hidden",true);
+
+        infos.appendChild(infoName)
+        infos.appendChild(infoLocalisation)
+        infos.appendChild(infoCitation)
+
+        
+        
+        console.log(infos.parentElement);
+
+        section.appendChild(infos);
+        section.appendChild(image);
+        
+
+        return(section)
+    }
+    function getPriceDOM() {
+        const priceDisplay = document.createElement('p')
+        const pop = document.createElement('div')
+
+        priceDisplay.textContent = `${price}€ / jour`
+        pop.appendChild(priceDisplay)
+        pop.setAttribute("class",'pop-price')
+        pop.appendChild(priceDisplay)
+
+        return(pop)
+
+    }
+    return { name, id, city, country, tagline, price, picture, getUserCardDOM, getUserProfileDOM, getPriceDOM }
 }
