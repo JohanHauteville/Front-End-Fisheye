@@ -22,17 +22,21 @@ export function mediaFactory(data) {
             
 
             media.setAttribute("poster", videoLink );
+            media.setAttribute("controls",''); //Permet le controle de la vidéo par l'utilisateur
         }else{
             media.textContent = `Image/Video introuvable`;
         }
         media.setAttribute("src", mediaLink);
         media.setAttribute("alt", title);
+        media.setAttribute("tabindex",0)
+        media.setAttribute("aria-label",`Titre: ${title}, ${likes} personnes aiment ce média`)
 
         link.appendChild(media);
 
         mediaName.textContent = title;
         numberOfLike.textContent = likes;
         heart.setAttribute("class",'fa-solid fa-heart')
+        heart.setAttribute("aria-label",'likes')
 
         info.appendChild(mediaName)
         info.appendChild(numberOfLike)

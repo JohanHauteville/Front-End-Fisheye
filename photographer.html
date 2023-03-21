@@ -17,12 +17,12 @@
     <main id="main">
       <div class="photograph-header">
         <!-- <button class="contact_button" onclick="displayModal()">Contactez-moi</button> -->
-        <button class="contact_button">Contactez-moi</button>
+        <button class="contact_button" aria-label="contact me">Contactez-moi</button>
      
       </div>
       <div class="photograph-media-filter">
         <p>Trier par</p>
-        <select name="filter" id="filter-select" >
+        <select name="filter" id="filter-select" aria-label="Order by" aria-labelledby="filter-select">
           <option value="Popularity">Popularité</option>
           <option value="Date">Date</option>
           <option value="Title">Titre</option>
@@ -32,24 +32,61 @@
 
       </section>
     </main>
-    <div id="contact_modal">
-			<div class="modal">
-				<header>
-          <h2>Contactez-moi</h2>
+    <!-- <dialog id="contact_modal"> -->
+    <div id="contact_modal" tabindex="-1" role="dialog" aria-describedby="modal-title">
+			<div class="modal"> 
+        <!-- modif balise header -->
+				<header> 
+          <h2 id="modal-title" tabindex="0">Contactez-moi</h2>
           <!-- <img src="assets/icons/close.svg" onclick="closeModal()" /> -->
-          <img src="assets/icons/close.svg" class="contact-close"/>
+          <img src="assets/icons/close.svg" class="contact-close" alt="Fermer le formulaire" tabindex="0"/>
 
         </header>
-				<form>
-					<div>
-						<label>Prénom</label>
-						<input />
-					</div>
-          <button class="contact_button">Envoyer</button>
+				<form
+        method="post"
+        >
+					<!-- <div> -->
+            <label  for="first">Prénom</label><br>
+            <input
+              id="first"
+              aria-labelledby="first"
+              type="text"
+              name="first"
+              minlength="2"
+              required
+            />
+            <label  for="last">Nom</label><br>
+            <input
+              id="last"
+              aria-labelledby="last"
+              type="text"
+              name="last"
+              minlength="2"
+              required
+            />
+            <label  for="mail">Email</label><br>
+            <input
+              id="mail"
+              aria-labelledby="mail"
+              type="email"
+              name="mail"
+              minlength="2"
+              required
+            />
+            <label  for="message">Votre message</label><br>
+            <textarea
+              id="message"
+              aria-labelledby="message"
+              name="message"
+              minlength="2"
+
+            ></textarea>
+					<!-- </div> -->
+          <button class="send_button" type="submit" aria-label="Send">Envoyer</button>
 				</form>
 			</div>
 		</div>
-    
+  <!-- </dialog> -->
     <script type="module" src="scripts/pages/photographer.js"></script>
     <script type="module" src="scripts/utils/contactForm.js"></script>
 

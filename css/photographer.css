@@ -1,5 +1,12 @@
 #contact_modal {
     display: none;
+    background-color: hsla(0, 0%, 37%, 0.4);
+    position: fixed;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
 }
 header a{
     display:block;
@@ -45,16 +52,36 @@ header a{
 
 .photograph-media-filter{
     display: flex;
+    margin-top: 20px;
     margin-left: 100px;
+    align-items: baseline;
+}
+.photograph-media-filter p{
+    font-weight: 700;
+    margin-right: 10px;
 }
 select {
+    /* -webkit-appearance: none;
+    appearance: none; */
+    padding: 0px 20px;
+    height: 40px;
+    background-color: #901C1C;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+  }
+
+  option {
     -webkit-appearance: none;
     appearance: none;
+    color: white;
+    background-color: #901C1C;
   }
 
 .photograph-media-section{
     display: grid;
-    grid-template-columns: minmax(auto,1fr) 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+    /* grid-template-columns: minmax(auto,350px) minmax(auto,350px) minmax(auto,350px); */
     /* grid-auto-rows: 300px; */
     gap: 70px;
     margin-top: 100px;
@@ -67,6 +94,8 @@ select {
 .photograph-media-section img,.photograph-media-section video{
     height: 300px;
     width: 350px;
+    /* min-width: 100%;
+    max-height: 100%; */
     border-radius: 5px;
     object-fit: cover;
     
@@ -96,7 +125,7 @@ select {
 .contact_button {
     position: absolute;
     left: 43%;
-    top: 145px;
+    top: 145px; 
     font-size: 20px;
     font-weight: bold;
     color: white;
@@ -110,9 +139,6 @@ select {
 }
 
 .modal {
-    position: absolute;
-    top: 25%;
-    left: 25%;
     border-radius: 5px;
     background-color: #DB8876;
     width: 50%;
@@ -127,6 +153,8 @@ select {
 .modal header {
     justify-content: space-between;
     width: 100%;
+    margin-bottom: 70px;
+    align-items: baseline;
 }
 
 .modal header img {
@@ -135,20 +163,24 @@ select {
 
 .modal header h2 {
     font-size: 64px;
-    font-weight: normal;
-    text-align: center;
+    font-weight: 400;
+    text-align: left;
+    line-height: 1.1;
+    margin: 0;
 }
 
 form {
-    display: flex;
+    /* display: flex; */
     width: 100%;
-    flex-direction: column;
-    align-items: flex-start;
+    /* flex-direction: column;
+    align-items: flex-start; */
 }
+
 
 form label {
     color: #312E2E;
     font-size: 36px;
+    font-weight: 400;
 }
 
 form div {
@@ -159,12 +191,18 @@ form div {
     margin-bottom: 26px;
 }
 
-form input {
+form input ,form textarea{
     width: 100%;
     height: 68px;
     border: none;
     border-radius: 5px;
 }
+
+form textarea {
+    height: 170px;
+    resize: none;
+}
+
 
 .pop-price{
     position: fixed;
@@ -175,4 +213,18 @@ form input {
     font-size: 1.2rem;
     font-weight: 500;
     border-radius: 5px 5px 0 0;
+}
+
+.send_button {
+    margin-top: 25px;
+    font-size: 20px;
+    font-weight: bold;
+    color: white;
+    padding: 11px;
+    width: 170px;
+    height: 70px;
+    border: none;
+    background-color: #901C1C;
+    border-radius: 5px;
+    cursor: pointer;
 }

@@ -52,17 +52,22 @@ export function photographerFactory(data) {
         const infoName= document.createElement('h1')
         const infoLocalisation = document.createElement('p')
         const infoCitation = document.createElement('p')
-       
+        // Permet d'afficher le nom du photographe dans le header du formulaire
+        let formHeader = document.querySelector('h2')
+        console.log(formHeader);
+        formHeader.innerText += `\n${name}`;
 
         const image = document.createElement('img')
-
         section.setAttribute("class",'photographer-profile')
+        
 
         infoName.textContent = name;
         infoLocalisation.textContent = `${city}, ${country}`;
         infoLocalisation.setAttribute("class",'info-localisation')
+        infoCitation.setAttribute("aria-label",'Localisation');
         infoCitation.textContent = tagline;
         infoCitation.setAttribute("class",'info-citation');
+        infoCitation.setAttribute("aria-label",'Citation');
 
         image.setAttribute("src", picture);
         image.setAttribute("alt", name);
