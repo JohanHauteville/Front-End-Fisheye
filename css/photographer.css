@@ -51,6 +51,7 @@ header a{
 }
 
 .photograph-media-filter{
+    
     display: flex;
     margin-top: 20px;
     margin-left: 100px;
@@ -69,6 +70,52 @@ select {
     color: #fff;
     border: none;
     border-radius: 5px;
+  }
+  .drop-down-filter{
+    z-index: 0;
+    position: relative;
+  }
+
+  .btn-filter{
+    color: #fff;
+    background-color: #901C1C;
+    border: 2px solid  #901C1C;
+    border-radius: 5px;
+    display: block;
+    font-size: 1em;
+    /* min-height: calc(1.4em + 26px); */
+    padding: 12px 0 14px 14px;
+    text-align: left;
+    width: 132px; 
+    font-family: DM sans;
+    z-index: 2;
+    /* position: absolute; */
+  }
+  .btn-filter i,.list-filter i{
+    margin-left: 10px;
+  }
+
+  .list-filter{
+    z-index: 3;
+    position: absolute;
+    list-style-type: none;
+    padding: 12px 16px 14px;
+    background-color: #901C1C;
+    color: #fff;
+    /* opacity: 0; */
+    font-size: 1em;
+    top: -16px;
+    width: 100px;
+    border-radius: 5px;
+    display: none;
+  }
+  /* .list-filter:hover {
+    opacity: 1;
+  } */
+
+  .list-filter li {
+    padding: 8px 0;
+    cursor: pointer;
   }
 
   option {

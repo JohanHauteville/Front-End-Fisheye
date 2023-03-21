@@ -22,11 +22,18 @@
       </div>
       <div class="photograph-media-filter">
         <p>Trier par</p>
-        <select name="filter" id="filter-select" aria-label="Order by" aria-labelledby="filter-select">
-          <option value="Popularity">Popularité</option>
-          <option value="Date">Date</option>
-          <option value="Title">Titre</option>
-        </select>
+        <!-- <button class="btn-filter" >Popularité<i class="fa-solid fa-chevron-up"></i></button> -->
+
+        <div class="drop-down-filter">
+          <button class="btn-filter" >Popularité<i class="fa-solid fa-chevron-down"></i></button>
+          <ul class="list-filter">
+            <li>Popularité<i class="fa-solid fa-chevron-up"></i></li>
+            <hr>
+            <li>Date</li>
+            <hr>
+            <li>Titre</li>
+          </ul>
+        </div>
       </div>
       <section class="photograph-media-section">
 
@@ -89,6 +96,7 @@
   <!-- </dialog> -->
     <script type="module" src="scripts/pages/photographer.js"></script>
     <script type="module" src="scripts/utils/contactForm.js"></script>
+    <script type="module" src="scripts/utils/filterBy.js"></script>
 
 
     
