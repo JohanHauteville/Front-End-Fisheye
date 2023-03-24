@@ -40,18 +40,14 @@ function handleFilters(){
         listOfFilters.style.display = "none"
         btnFilter.setAttribute("aria-expanded",false)
         btnFilter.focus()
-        console.log('fermeture');
     }
 }
 
 listOfFilters.addEventListener("keydown", function(e){
-    console.log(e.key)
+    //console.log(e.key)
     if(e.key === "Escape"){
        handleFilters()
     }
-    else if(e.key === "Enter"){
-        document.activeElement.click()
-    }    
 })
 
 let indice = 0
@@ -66,13 +62,22 @@ listOfFilters.addEventListener("keyup", function(e){
 
 /////  EVENEMENT CLICK  //////////
 listOfFilters.addEventListener('click', event => {
-    const option = event.target.closest('li')
+    let option = event.target.closest('li')
     console.log(option);
-    if (!option) return
+    if (!option){// return
+        console.log("return!");
+        allFilters.forEach(element => {
+            if(element.getAttribute('aria-selected')===true){
+                option = element
+                console.log("sa passe !")
+            }
+        })
+    }
   
     // Change la valeur de aria-activedescendant 
     listOfFilters.setAttribute('aria-activedescendant', option.id)
     btnFilter.innerHTML= option.textContent + "<i class=\"fa-solid fa-chevron-down\">"
+    console.log("innerHTML");
     handleFilters()
   
     // Changement de l'apparence visuelle
@@ -84,36 +89,43 @@ listOfFilters.addEventListener('click', event => {
     option.setAttribute("aria-selected",true)
   })
 
-/////  EVENEMENT CLAVIER  //////////
+/////  EVENEMENTS CLAVIER  //////////
 listOfFilters.addEventListener('keydown', event => {
-const { key } = event
+    const { key } = event
 
-if (key === 'ArrowDown' || key === 'ArrowUp'){
-    listOfFilters.addEventListener('keydown' , disableArrowKeys, false);
-    listOfFilters.addEventListener('keyup'   , disableArrowKeys, false);
-    console.log("Down !");
-    const activeElementID = listOfFilters.getAttribute('aria-activedescendant')
-    const activeElement = listOfFilters.querySelector('#' + activeElementID)
-    // ...
-    let selectedOption 
-    if (key === 'ArrowDown') selectedOption = activeElement.nextElementSibling
-    if (key === 'ArrowUp') selectedOption = activeElement.previousElementSibling
+    if (key === 'ArrowDown' || key === 'ArrowUp'){
+        listOfFilters.addEventListener('keydown' , disableArrowKeys, false);
+        listOfFilters.addEventListener('keyup'   , disableArrowKeys, false);
+ 
+        const activeElementID = listOfFilters.getAttribute('aria-activedescendant')
+        const activeElement = listOfFilters.querySelector('#' + activeElementID)
 
-    
-    if (selectedOption) {     
-        // Change la valeur de aria-activedescendant
-        listOfFilters.setAttribute('aria-activedescendant', selectedOption.id)
-    
-        // Changement de l'apparence visuelle
-        allFilters.forEach(element => element.classList.remove('is-selected'))
-        selectedOption.classList.add('is-selected')
+        let selectedOption 
+        if (key === 'ArrowDown') selectedOption = activeElement.nextElementSibling
+        if (key === 'ArrowUp') selectedOption = activeElement.previousElementSibling
 
-        // Change la valeur de aria-selected
-        allFilters.forEach(element => element.setAttribute("aria-selected",false))
-        selectedOption.setAttribute("aria-selected",true)
+        
+        if (selectedOption) {     
+            // Change la valeur de aria-activedescendant
+            listOfFilters.setAttribute('aria-activedescendant', selectedOption.id)
+        
+            // Changement de l'apparence visuelle
+            allFilters.forEach(element => element.classList.remove('is-selected'))
+            selectedOption.classList.add('is-selected')
+
+            // Change la valeur de aria-selected
+            allFilters.forEach(element => element.setAttribute("aria-selected",false))
+            selectedOption.setAttribute("aria-selected",true)
+        }
+    } else if(key === 'Enter'){
+
+        const activeElementID = listOfFilters.getAttribute('aria-activedescendant')
+        const activeElement = listOfFilters.querySelector('#' + activeElementID)
+
+        // Permet de changer le texte du bouton quand il est utilisé
+        btnFilter.innerHTML= activeElement.textContent + "<i class=\"fa-solid fa-chevron-down\">"
+        handleFilters()
     }
-}
-
 
 })
 
