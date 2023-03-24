@@ -55,11 +55,12 @@ header a{
     display: flex;
     margin-top: 20px;
     margin-left: 100px;
-    align-items: baseline;
+    /* align-items: baseline; */
 }
-.photograph-media-filter p{
+.photograph-media-filter label{
     font-weight: 700;
     margin-right: 10px;
+    margin: auto 10px auto 0;
 }
 select {
     /* -webkit-appearance: none;
@@ -70,6 +71,10 @@ select {
     color: #fff;
     border: none;
     border-radius: 5px;
+  }
+
+  .is-selected {
+    border: 2px solid #312E2E;
   }
   .drop-down-filter{
     z-index: 0;
@@ -103,7 +108,7 @@ select {
     z-index: 3;
     position: absolute;
     list-style-type: none;
-    padding: 12px 16px 14px;
+    padding: 6px 16px 10px;
     background-color: #901C1C;
     color: #fff;
     /* opacity: 0; */
@@ -113,14 +118,20 @@ select {
     border-radius: 5px;
     display: none;
   }
-  /* .list-filter:hover {
-    opacity: 1;
-  } */
+
 
   .list-filter li {
     padding: 8px 0;
     cursor: pointer;
   }
+  .list-filter li:nth-child(1):after, .list-filter li:nth-child(2):after{
+    content: '';
+    display: block;
+    width: 100%;
+    border-top: 1px solid #fff;
+    margin-top: 15px;
+  }
+
 
   option {
     -webkit-appearance: none;
