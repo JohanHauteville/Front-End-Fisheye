@@ -7,6 +7,5 @@ const allArticle = document.getElementsByClassName('media-link')
 console.log('Liste article');
 console.log(allArticle);
 
-allArticle.forEach(element => {
-    
-});
+
+

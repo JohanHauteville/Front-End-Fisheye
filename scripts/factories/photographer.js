@@ -84,15 +84,19 @@ export function photographerFactory(data) {
     }
     function getPriceDOM() {
         const priceDisplay = document.createElement('p')
+        const popLikes = document.createElement('p')
         const pop = document.createElement('div')
 
+        popLikes.setAttribute("class",'pop-likes')
         priceDisplay.textContent = `${price}€ / jour`
-        pop.appendChild(priceDisplay)
-        pop.setAttribute("class",'pop-price')
+        priceDisplay.setAttribute("class",'pop-price')
+        pop.appendChild(popLikes)
+        pop.setAttribute("class",'pop-up')
         pop.appendChild(priceDisplay)
 
         return(pop)
 
     }
+
     return { name, id, city, country, tagline, price, picture, getUserCardDOM, getUserProfileDOM, getPriceDOM }
 }

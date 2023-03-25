@@ -1,3 +1,6 @@
+import modifyLike from '../utils/filterBy.js'
+import {getLikes} from '../pages/photographer.js'
+
 export function mediaFactory(data) {
     const { id, photographerId, title, image, video, likes, date, price } = data;
     const mediaLink = `assets/medias/${photographerId}/${image??video}`;
@@ -15,18 +18,16 @@ export function mediaFactory(data) {
         let media =document.createElement('p');
         if(image!== undefined){
             media = document.createElement( 'img' );
-
         } else if(video!== undefined){
             media = document.createElement( 'video' );
             let videoLink = mediaLink.slice(0,mediaLink.length-3)
             videoLink +=`png`;
-            
-
             media.setAttribute("poster", videoLink );
             media.setAttribute("controls",''); //Permet le controle de la vidéo par l'utilisateur
         }else{
             media.textContent = `Image/Video introuvable`;
         }
+
         media.setAttribute("src", mediaLink);
         media.setAttribute("alt", title);
         media.setAttribute("tabindex",0)
@@ -40,18 +41,40 @@ export function mediaFactory(data) {
         mediaName.textContent = title;
         let heartTrigger = false
         numberOfLike.textContent = likes;
+        numberOfLike.setAttribute("class",'number-of-likes')
         heart.setAttribute("class",'fa-solid fa-heart')
         heart.setAttribute("aria-label",'likes')
+        heart.setAttribute("tabindex",0)
+
         // permet d'incrementer ou décrementer le nombre de likes associé au coeur
         heart.addEventListener('click',()=>{
             if(heartTrigger){
                 numberOfLike.textContent --
                 heartTrigger = false
+                modifyLike(id,'DEC')
+                getLikes()
             } else {
                 numberOfLike.textContent ++
                 heartTrigger = true
+                modifyLike(id,'INC')
+                getLikes()
+                
             }
-            console.log("Heart of click");
+        })
+
+        heart.addEventListener('keydown',(e)=>{
+            if(heartTrigger && e.key ==='Enter'){
+                numberOfLike.textContent --
+                heartTrigger = false
+                modifyLike(id,'DEC')
+                getLikes()
+            } else if(e.key ==='Enter'){
+                numberOfLike.textContent ++
+                heartTrigger = true
+                modifyLike(id,'INC')
+                getLikes()
+                
+            }
         })
 
         info.appendChild(mediaName)
@@ -63,5 +86,20 @@ export function mediaFactory(data) {
         article.appendChild(info)
         return (article);
     }
-    return { id, photographerId, title, image, video, likes, date, price, getUserMediaDOM }
+
+    // function getLikes() {
+    //     let totalOfLikes = 0
+    //     const allLikes = document.getElementsByClassName('number-of-likes')
+ 
+    //     const popUp = document.querySelector('.pop-likes')
+    //     const arrayOfLikes = Array.from(allLikes)
+    //     arrayOfLikes.forEach(element =>{
+    //         totalOfLikes = totalOfLikes + parseInt(element.textContent,10) 
+    //     })
+    //     console.log(popUp);
+    //     popUp.textContent= totalOfLikes + ""
+        
+    // }
+
+    return { id, photographerId, title, image, video, likes, date, price, getUserMediaDOM,  }
 }

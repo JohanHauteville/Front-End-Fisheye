@@ -8,8 +8,9 @@ let mediaFiltre
 if(media===null){
     console.log("Pas de LocalStorage");
 } else{
-    media = JSON.parse(media)
+    media = await JSON.parse(media)
     mediaFiltre = await mediaFilterbyUser(media)
+    console.log(mediaFiltre);
 }
 
 
@@ -22,6 +23,17 @@ listOfFilters.style.display = "none"
 const allFilters = document.querySelectorAll('.list-filter li')
 
 
+
+export default function modifyLike(likeID,option){
+    mediaFiltre.forEach(element =>{
+        if(element.id===likeID && option=== 'INC'){
+            element.likes ++
+        } else if(element.id===likeID && option=== 'DEC'){
+            element.likes --
+        }
+    })
+    console.log(mediaFiltre);
+}
 
 
 // state pattern
@@ -61,12 +73,6 @@ listOfFilters.addEventListener('click', event => {
     console.log(option);
     if (!option){// return
         console.log("return!");
-        // allFilters.forEach(element => {
-        //     if(element.getAttribute('aria-selected')===true){
-        //         option = element
-        //         console.log("sa passe !")
-        //     }
-        // })
     }
   
     // Change la valeur de aria-activedescendant 

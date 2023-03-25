@@ -22,6 +22,7 @@ export default async function displayMedia(medias) {
             mediasSection.appendChild(userMediaDOM);  
     });
 }
+
 async function displayData(photographers) {
     let params = (new URL(document.location)).searchParams;
     let userId = parseInt(params.get('id')); // on récupère l'id du photographe depuis l'url
@@ -50,7 +51,18 @@ export async function mediaFilterbyUser(medias){
     return mediaFiltre
 }
 
+export function getLikes() {
+    let totalOfLikes = 0
+    const allLikes = document.getElementsByClassName('number-of-likes')
 
+    const popUp = document.querySelector('.pop-likes')
+    const arrayOfLikes = Array.from(allLikes)
+    arrayOfLikes.forEach(element =>{
+        totalOfLikes = totalOfLikes + parseInt(element.textContent,10) 
+    })
+    console.log(popUp);
+    popUp.innerHTML= totalOfLikes + "<i class=\"fa-solid fa-heart\">"
+}
 
 async function init() {
     // Récupère les datas des photographes
@@ -62,14 +74,19 @@ async function init() {
         const valeurMedia = JSON.stringify(media)
         localStorage.setItem("medias",valeurMedia)
         console.log("Enregistrement dans le localStorage");
+
     } else {
         medias = JSON.parse(medias)
         console.log("Utilisation du localStorage");
+
     }
     const { photographers } = await getPhotographers();
     displayData(photographers);
     const mediaFiltres = await mediaFilterbyUser(medias)
     displayMedia(mediaFiltres);
+    getLikes()
+    // photographers.getLikes()
+    // mediaFiltres.getLikes
 }
     
 init();
