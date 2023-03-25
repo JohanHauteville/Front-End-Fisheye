@@ -183,6 +183,9 @@ select {
     font-size: 1.2rem;
     margin-left: 5px;
 }
+.fa-solid {
+    cursor: pointer;
+}
 
 .contact_button {
     position: absolute;

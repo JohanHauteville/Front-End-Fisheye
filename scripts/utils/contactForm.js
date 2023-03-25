@@ -11,7 +11,6 @@ btnSend.addEventListener('click',sendData);
 
 const  focusableElements =
     'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])';
-    console.log(focusableElements);
 
 export function displayModal() {
     modal.style.display = "flex"; 

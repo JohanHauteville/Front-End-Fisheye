@@ -6,6 +6,7 @@ export function mediaFactory(data) {
         
         const article = document.createElement( 'article' );
         const link = document.createElement('a');
+        link.setAttribute("class",'media-link')
         
         const mediaName = document.createElement('p');
         const numberOfLike = document.createElement('p');
@@ -30,13 +31,28 @@ export function mediaFactory(data) {
         media.setAttribute("alt", title);
         media.setAttribute("tabindex",0)
         media.setAttribute("aria-label",`Titre: ${title}, ${likes} personnes aiment ce média`)
+        media.addEventListener('click',()=>{
+            console.log("Media click");
+        })
 
         link.appendChild(media);
 
         mediaName.textContent = title;
+        let heartTrigger = false
         numberOfLike.textContent = likes;
         heart.setAttribute("class",'fa-solid fa-heart')
         heart.setAttribute("aria-label",'likes')
+        // permet d'incrementer ou décrementer le nombre de likes associé au coeur
+        heart.addEventListener('click',()=>{
+            if(heartTrigger){
+                numberOfLike.textContent --
+                heartTrigger = false
+            } else {
+                numberOfLike.textContent ++
+                heartTrigger = true
+            }
+            console.log("Heart of click");
+        })
 
         info.appendChild(mediaName)
         info.appendChild(numberOfLike)

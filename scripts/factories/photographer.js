@@ -54,7 +54,6 @@ export function photographerFactory(data) {
         const infoCitation = document.createElement('p')
         // Permet d'afficher le nom du photographe dans le header du formulaire
         let formHeader = document.querySelector('h2')
-        console.log(formHeader);
         formHeader.innerText += `\n${name}`;
 
         const image = document.createElement('img')
@@ -76,10 +75,6 @@ export function photographerFactory(data) {
         infos.appendChild(infoName)
         infos.appendChild(infoLocalisation)
         infos.appendChild(infoCitation)
-
-        
-        
-        console.log(infos.parentElement);
 
         section.appendChild(infos);
         section.appendChild(image);

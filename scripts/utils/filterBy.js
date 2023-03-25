@@ -1,3 +1,17 @@
+//import {getPhotographers} from '../pages/photographer.js'
+import {mediaFilterbyUser} from '../pages/photographer.js'
+import displayMedia from '../pages/photographer.js'
+
+
+let media = localStorage.getItem("medias")
+let mediaFiltre
+if(media===null){
+    console.log("Pas de LocalStorage");
+} else{
+    media = JSON.parse(media)
+    mediaFiltre = await mediaFilterbyUser(media)
+}
+
 
 const btnFilter = document.querySelector('.btn-filter');
 btnFilter.addEventListener('click',handleFilters);
@@ -6,27 +20,9 @@ const listOfFilters = document.querySelector('.list-filter')
 listOfFilters.style.display = "none"
 
 const allFilters = document.querySelectorAll('.list-filter li')
-console.log(allFilters);
-// allFilters.forEach(element => {
-//     element.addEventListener('click',() =>{
-//         btnFilter.innerHTML= element.textContent + "<i class=\"fa-solid fa-chevron-down\">"
-//         switch(element.textContent){
-//             case 'Popularité':
-//                 console.log('Tri par popularité')
-//                 break
-//             case 'Date':
-//                 console.log('Tri par Date')
-//                 break
-//             case 'Titre':
-//                 console.log('Tri par Titre')
-//                 break
-//             default:
-//                 console.log('Aucun tri');
-//                 break
-//         }
-//         handleFilters()
-//     })
-// });
+
+
+
 
 // state pattern
 function handleFilters(){
@@ -44,7 +40,6 @@ function handleFilters(){
 }
 
 listOfFilters.addEventListener("keydown", function(e){
-    //console.log(e.key)
     if(e.key === "Escape"){
        handleFilters()
     }
@@ -60,18 +55,18 @@ listOfFilters.addEventListener("keyup", function(e){
     }
 })
 
-/////  EVENEMENT CLICK  //////////
+/////  EVENEMENTS CLICK  //////////
 listOfFilters.addEventListener('click', event => {
     let option = event.target.closest('li')
     console.log(option);
     if (!option){// return
         console.log("return!");
-        allFilters.forEach(element => {
-            if(element.getAttribute('aria-selected')===true){
-                option = element
-                console.log("sa passe !")
-            }
-        })
+        // allFilters.forEach(element => {
+        //     if(element.getAttribute('aria-selected')===true){
+        //         option = element
+        //         console.log("sa passe !")
+        //     }
+        // })
     }
   
     // Change la valeur de aria-activedescendant 
@@ -79,6 +74,9 @@ listOfFilters.addEventListener('click', event => {
     btnFilter.innerHTML= option.textContent + "<i class=\"fa-solid fa-chevron-down\">"
     console.log("innerHTML");
     handleFilters()
+
+    filtrageMedia(option.id)
+
   
     // Changement de l'apparence visuelle
     allFilters.forEach(element => element.classList.remove('is-selected'))
@@ -125,6 +123,7 @@ listOfFilters.addEventListener('keydown', event => {
         // Permet de changer le texte du bouton quand il est utilisé
         btnFilter.innerHTML= activeElement.textContent + "<i class=\"fa-solid fa-chevron-down\">"
         handleFilters()
+        filtrageMedia(activeElementID)
     }
 
 })
@@ -137,4 +136,26 @@ function disableArrowKeys(evt) {
      evt.keyCode === 39 ||
      evt.keyCode === 40) &&
     evt.preventDefault();
+}
+
+async function filtrageMedia(filtre){
+    switch(filtre){
+        case 'popularity':
+            mediaFiltre.sort(function(a,b){
+                return b.likes - a.likes
+            })
+            displayMedia(mediaFiltre)
+            break
+        case 'date':
+            mediaFiltre.sort((a,b)=> a.date.localeCompare(b.date))
+            displayMedia(mediaFiltre)
+            break
+        case 'title':
+            mediaFiltre.sort((a,b)=> a.title.localeCompare(b.title))
+            displayMedia(mediaFiltre)
+            break
+        default:
+            console.log('Aucun tri');
+            break
+    }
 }
