@@ -13,6 +13,9 @@ if(media===null){
     console.log(mediaFiltre);
 }
 
+export function getMediaFiltre(){
+    return mediaFiltre
+}
 
 const btnFilter = document.querySelector('.btn-filter');
 btnFilter.addEventListener('click',handleFilters);

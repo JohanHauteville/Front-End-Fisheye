@@ -8,6 +8,9 @@
     align-items: center;
     justify-content: center;
 }
+body{
+    position: relative;
+}
 header a{
     display:block;
     margin-top: 20px;
@@ -296,4 +299,39 @@ form textarea {
     background-color: #901C1C;
     border-radius: 5px;
     cursor: pointer;
+}
+
+#light-box{
+    display: none;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: hsla(0, 0%, 37%, 0.4);
+}
+
+.light-box-close{
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    width: 30px;
+    color: #901C1C;
+    cursor: pointer;
+}
+
+#light-box i {
+    color: #901C1C;
+    font-size: 4rem;
+}
+#light-box img,#light-box video{
+    max-height: 90%;
+    max-width: 90%;
+}
+.media-light-box{
+    height: 90%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

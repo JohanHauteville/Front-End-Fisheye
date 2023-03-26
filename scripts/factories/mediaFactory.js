@@ -1,5 +1,7 @@
 import modifyLike from '../utils/filterBy.js'
 import {getLikes} from '../pages/photographer.js'
+import {showLightbox} from '../utils/lightBox.js'
+
 
 export function mediaFactory(data) {
     const { id, photographerId, title, image, video, likes, date, price } = data;
@@ -23,7 +25,7 @@ export function mediaFactory(data) {
             let videoLink = mediaLink.slice(0,mediaLink.length-3)
             videoLink +=`png`;
             media.setAttribute("poster", videoLink );
-            media.setAttribute("controls",''); //Permet le controle de la vidéo par l'utilisateur
+            //media.setAttribute("controls",''); //Permet le controle de la vidéo par l'utilisateur
         }else{
             media.textContent = `Image/Video introuvable`;
         }
@@ -33,6 +35,7 @@ export function mediaFactory(data) {
         media.setAttribute("tabindex",0)
         media.setAttribute("aria-label",`Titre: ${title}, ${likes} personnes aiment ce média`)
         media.addEventListener('click',()=>{
+            showLightbox(id)
             console.log("Media click");
         })
 
