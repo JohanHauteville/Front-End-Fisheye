@@ -29,9 +29,10 @@ export function mediaFactory(data) {
         }else{
             media.textContent = `Image/Video introuvable`;
         }
-
+        media.setAttribute("class",'media-grid')
         media.setAttribute("src", mediaLink);
         media.setAttribute("alt", title);
+        media.setAttribute("data-media-id",id);
         media.setAttribute("tabindex",0)
         media.setAttribute("aria-label",`Titre: ${title}, ${likes} personnes aiment ce média`)
         media.addEventListener('click',()=>{
@@ -89,20 +90,6 @@ export function mediaFactory(data) {
         article.appendChild(info)
         return (article);
     }
-
-    // function getLikes() {
-    //     let totalOfLikes = 0
-    //     const allLikes = document.getElementsByClassName('number-of-likes')
- 
-    //     const popUp = document.querySelector('.pop-likes')
-    //     const arrayOfLikes = Array.from(allLikes)
-    //     arrayOfLikes.forEach(element =>{
-    //         totalOfLikes = totalOfLikes + parseInt(element.textContent,10) 
-    //     })
-    //     console.log(popUp);
-    //     popUp.textContent= totalOfLikes + ""
-        
-    // }
 
     return { id, photographerId, title, image, video, likes, date, price, getUserMediaDOM,  }
 }

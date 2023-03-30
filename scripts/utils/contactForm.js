@@ -1,3 +1,5 @@
+console.log("Fichier contactForm chargé");
+
 const btn = document.querySelector('.contact_button')
 btn.addEventListener('click',displayModal)
 const btnClose = document.querySelector('.contact-close')

@@ -2,6 +2,7 @@
 import {mediaFilterbyUser} from '../pages/photographer.js'
 import displayMedia from '../pages/photographer.js'
 
+console.log("Fichier filterBy chargé");
 
 let media = localStorage.getItem("medias")
 let mediaFiltre
@@ -10,12 +11,13 @@ if(media===null){
 } else{
     media = await JSON.parse(media)
     mediaFiltre = await mediaFilterbyUser(media)
-    console.log(mediaFiltre);
+    
 }
 
-export function getMediaFiltre(){
-    return mediaFiltre
-}
+
+// permet d'attendre la génération des medias pour leur attribuer un data-set
+setTimeout(setDataIndexNumber,300)
+
 
 const btnFilter = document.querySelector('.btn-filter');
 btnFilter.addEventListener('click',handleFilters);
@@ -24,6 +26,8 @@ const listOfFilters = document.querySelector('.list-filter')
 listOfFilters.style.display = "none"
 
 const allFilters = document.querySelectorAll('.list-filter li')
+
+
 
 
 
@@ -73,7 +77,6 @@ listOfFilters.addEventListener("keyup", function(e){
 /////  EVENEMENTS CLICK  //////////
 listOfFilters.addEventListener('click', event => {
     let option = event.target.closest('li')
-    console.log(option);
     if (!option){// return
         console.log("return!");
     }
@@ -81,7 +84,6 @@ listOfFilters.addEventListener('click', event => {
     // Change la valeur de aria-activedescendant 
     listOfFilters.setAttribute('aria-activedescendant', option.id)
     btnFilter.innerHTML= option.textContent + "<i class=\"fa-solid fa-chevron-down\">"
-    console.log("innerHTML");
     handleFilters()
 
     filtrageMedia(option.id)
@@ -154,17 +156,29 @@ async function filtrageMedia(filtre){
                 return b.likes - a.likes
             })
             displayMedia(mediaFiltre)
+            setDataIndexNumber()
             break
         case 'date':
             mediaFiltre.sort((a,b)=> a.date.localeCompare(b.date))
             displayMedia(mediaFiltre)
+            setDataIndexNumber()
             break
         case 'title':
             mediaFiltre.sort((a,b)=> a.title.localeCompare(b.title))
             displayMedia(mediaFiltre)
+            setDataIndexNumber()
             break
         default:
             console.log('Aucun tri');
             break
     }
+}
+
+function setDataIndexNumber(){
+    const arrayOfMedia = document.querySelectorAll('.media-grid')
+    let indice =0
+    arrayOfMedia.forEach(media=>{
+        media.setAttribute("Data-index-number",indice)
+        indice++
+    })
 }

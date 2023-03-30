@@ -5,72 +5,112 @@
 // const allArticle = document.getElementsByClassName('media-link')
 // console.log(allArticle);
 
-import {getMediaFiltre} from '../utils/filterBy.js'
+
+
 
 const lightBox = document.getElementById('light-box')
+
 const closeBtn = document.querySelector('.light-box-close')
 closeBtn.addEventListener('click', closeLightbox)
 const mediaBox = document.querySelector('.media-light-box')
-const mediaInsert = document.createElement('img')
+// const mediaInsert = document.createElement('img')
 const nextMediaBtn = document.querySelector('#btn-next-media')
 nextMediaBtn.addEventListener('click',nextMedia)
 const previousMediaBtn = document.querySelector('#btn-previous-media')
 previousMediaBtn.addEventListener('click',previousMedia)
-let importMediaId
+let indexNumber = 0
+let arrayOfIndexLength = 0
+console.log("Fichier lightBox chargé");
+
+lightBox.addEventListener('keydown', event =>{
+    //event.preventDefault()
+    (event.key === 'ArrowUp' ||
+        event.key === 'ArrowDown' ||
+        event.key === 'ArrowLeft' ||
+        event.key === 'ArrowRight' ||
+        event.key === 'Space' ||
+        event.key === 'Escape') &&
+       event.preventDefault();
+    if(event.key === "Escape"){
+       closeLightbox()
+       console.log("bouton echap pressed");
+    } else if(event.key === "ArrowLeft"){
+        previousMedia()
+    } else if(event.key === "ArrowRight"){
+        nextMedia()
+    }
+})
 
 
 export function showLightbox(mediaId){
+
+   console.log(`Indexnumber on ShowLightBox = ${indexNumber}`);
+
     lightBox.style.display = "flex"
-    const tableauTest = getMediaFiltre()
-    const indiceTableau = getMediaID(mediaId)
-    
-    const mediaLink = `assets/medias/${tableauTest[indiceTableau].photographerId}/${tableauTest[indiceTableau].image??tableauTest[indiceTableau].video}`;
-    mediaInsert.setAttribute("src",mediaLink)
-    mediaBox.appendChild(mediaInsert)
-    console.log(indiceTableau);
-    importMediaId = mediaId
-    console.log(importMediaId);
+    lightBox.setAttribute("aria-hidden",false)
+    previousMediaBtn.focus()
+    console.log("eventlistener");
+
+
+    const arrayOfDataIndexNumber = document.querySelectorAll('[Data-index-number]')
+    arrayOfIndexLength = arrayOfDataIndexNumber.length 
+
+    const mediaToShow = document.querySelector(`[data-media-id="${mediaId}"]`)
+    indexNumber = mediaToShow.getAttribute("data-index-number")
+    console.log(`Indexnumber on ShowLightBox after getattribute = ${indexNumber}`);
+
+    const copyMedia = mediaToShow.cloneNode()
+    copyMedia.setAttribute("controls","")
+
+    mediaBox.appendChild(copyMedia)
+
 }
 
 function closeLightbox(){
-    console.log("close lightbox");
+    // const centralImage = document.querySelector('.media-light-box [data-index-number]')
+    // indexNumber = centralImage.getAttribute("data-index-number")
+    // console.log("centralImage =");
+    // console.log(centralImage);
+    // console.log(`IndexNumber = ${indexNumber}`);
+    indexNumber=0
+    mediaBox.innerHTML = ''  
     lightBox.style.display = "none"
 }
 
 function nextMedia(){
-    console.log("Next button pressed");
-    console.log(importMediaId);
-    const tableauTest = getMediaFiltre()
-    const indiceTableau = getMediaID(importMediaId)
-    const mediaLink = `assets/medias/${tableauTest[indiceTableau].photographerId}/${tableauTest[indiceTableau+1].image??tableauTest[indiceTableau+1].video}`;
-    mediaInsert.setAttribute("src",mediaLink)
-    mediaBox.appendChild(mediaInsert)
-    importMediaId = tableauTest[indiceTableau+1].id
+    if(indexNumber>=arrayOfIndexLength-1){
+        indexNumber=0
+    } else{
+        indexNumber++
+    }
+    console.log(`indexNumber= ${indexNumber}`);
+    const mediaToShow = document.querySelector(`[data-index-number="${indexNumber}"]`)
+    console.log(mediaToShow);
+
+    const copyMedia = mediaToShow.cloneNode()
+    copyMedia.setAttribute("controls","")
+
+    mediaBox.innerHTML=""
+    mediaBox.appendChild(copyMedia)
+
+
 }
 
 
 function previousMedia(){
-    console.log("Previous button pressed");
-    console.log(importMediaId);
-    const tableauTest = getMediaFiltre()
-    const indiceTableau = getMediaID(importMediaId)
-    const mediaLink = `assets/medias/${tableauTest[indiceTableau].photographerId}/${tableauTest[indiceTableau-1].image??tableauTest[indiceTableau-1].video}`;
-    mediaInsert.setAttribute("src",mediaLink)
-    mediaBox.appendChild(mediaInsert)
-    importMediaId = tableauTest[indiceTableau-1].id
-}
+    if(indexNumber==0){
+        indexNumber=arrayOfIndexLength-1
+    } else{
+        indexNumber--
+    }
+    console.log(indexNumber);
+    console.log(`indexNumber= ${indexNumber}`);
+    const mediaToShow = document.querySelector(`[data-index-number="${indexNumber}"]`)
+    console.log(mediaToShow);
 
-function getMediaID(mediaId){
-    const tableauTest = getMediaFiltre()
-    let indice = 0
-    let indiceTableau = 0
-    tableauTest.forEach(element => {
-        if(element.id === mediaId){
-            console.log(element.id + "=" + mediaId);
-            indiceTableau = indice
-        }else{
-            indice =indice +1
-        }
-    });
-    return indiceTableau
+    const copyMedia = mediaToShow.cloneNode()
+    copyMedia.setAttribute("controls","")
+
+    mediaBox.innerHTML=""
+    mediaBox.appendChild(copyMedia)
 }

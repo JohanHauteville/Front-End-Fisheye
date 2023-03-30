@@ -74,19 +74,15 @@ async function init() {
         const valeurMedia = JSON.stringify(media)
         localStorage.setItem("medias",valeurMedia)
         console.log("Enregistrement dans le localStorage");
-
     } else {
         medias = JSON.parse(medias)
         console.log("Utilisation du localStorage");
-
     }
     const { photographers } = await getPhotographers();
     displayData(photographers);
     const mediaFiltres = await mediaFilterbyUser(medias)
-    displayMedia(mediaFiltres);
+    await displayMedia(mediaFiltres);
     getLikes()
-    // photographers.getLikes()
-    // mediaFiltres.getLikes
 }
     
 init();
