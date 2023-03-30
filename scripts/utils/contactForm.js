@@ -72,5 +72,3 @@ modal.addEventListener('keydown', function(e) {
       }
     }
   });
-  
- // firstFocusableElement.focus();
