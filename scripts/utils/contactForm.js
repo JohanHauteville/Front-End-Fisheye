@@ -1,5 +1,3 @@
-console.log("Fichier contactForm chargé");
-
 const btn = document.querySelector('.contact_button')
 btn.addEventListener('click',displayModal)
 const btnClose = document.querySelector('.contact-close')
@@ -7,6 +5,11 @@ btnClose.addEventListener('click',closeModal)
 const titleModal = document.getElementById('modal-title');
 const modal = document.getElementById("contact_modal");
 const mainElements = document.querySelector("main");
+const inputOfFirst = document.getElementById('first')
+const inputOfLast = document.getElementById('last')
+const inputOfMail = document.getElementById('mail')
+const inputOfMessage = document.getElementById('message')
+
 
 const btnSend = document.querySelector('.send_button');
 btnSend.addEventListener('click',sendData);
@@ -18,10 +21,7 @@ export function displayModal() {
     modal.style.display = "flex"; 
     modal.setAttribute("aria-hidden",false)
     modal.setAttribute("aria-modal",true)
-
     mainElements.setAttribute("aria-hidden",true)
-     
-    mainElements.setAttribute("role",'none')
     titleModal.focus()
     
 }
@@ -30,18 +30,32 @@ export function closeModal() {
     modal.style.display = "none";
     modal.setAttribute("aria-hidden",true)
     mainElements.setAttribute("aria-hidden",false)
+    btn.focus()
 }
-
-
-
 
 export function sendData(){
-    // Code d'envoi des données
-    //closeModal()
-    //location.reload()
-    //event.preventDefault()
-}
+ if(
+   checkTextarea() &
+   checkString("first") &
+   checkString("last") &
+   checkEmail()
+ ){
 
+    console.log(`Envoi du formulaire:
+    Prénom: ${inputOfFirst.value}
+    Nom: ${inputOfLast.value}
+    Email: ${inputOfMail.value}
+    Message: ${inputOfMessage.value}
+    `);
+    closeModal()
+    inputOfFirst.value = ""
+    inputOfLast.value = ""
+    inputOfMail.value = ""
+    inputOfMessage.value = ""
+ } 
+    event.preventDefault()
+    
+}
 
 const firstFocusableElement = modal.querySelectorAll(focusableElements)[0]; // get first element to be focused inside modal
 const focusableContent = modal.querySelectorAll(focusableElements);
@@ -71,4 +85,71 @@ modal.addEventListener('keydown', function(e) {
         e.preventDefault();
       }
     }
-  });
+});
+
+inputOfFirst.addEventListener('focusout',()=>{
+  checkString("first")
+})
+inputOfLast.addEventListener('focusout',()=>{
+  checkString("last")
+})
+inputOfMail.addEventListener('focusout', checkEmail)
+inputOfMessage.addEventListener('focusout',checkTextarea)
+
+
+
+// fonction d'affichage / désaffichage d'un champs incorrect
+function affichageErreur(inputId, text) {
+  if (text === "DEL") {    // Si la chaine est vide alors on supprime l'affichage de l'erreur
+    document.getElementById(inputId).removeAttribute("data-error-visible");
+    document.getElementById(inputId).setAttribute("data-valid-visible","");
+
+
+  } else if(text === "ADD"){   // Sinon on affiche l'erreur avece le texte entré
+    document.getElementById(inputId).setAttribute("data-error-visible","");
+    document.getElementById(inputId).removeAttribute("data-valid-visible");
+
+  }
+}
+
+// fonction de contrôle de l'email
+function checkEmail() {
+  const regex = /^([a-zA-Z0-9-.]+)(@)([a-zA-Z-]+)\.([a-zA-Z]{2,})$/mg;  // Regex de test
+  if (/@/.test(inputOfMail.value) === false) {                    // Test de la présence de '@'
+    affichageErreur('mail',"ADD");
+  } else if (/(@)([a-zA-Z-]+)\.([a-zA-Z]{2,})$/mg.test(inputOfMail.value) === false) {     // Test de la présence du nom de domaine complet
+    affichageErreur('mail',"ADD");
+  } else if (regex.test(inputOfMail.value)) {           // Vérification du reste de l'adresse email (avant le '@')
+    affichageErreur('mail',"DEL");
+    return true;
+  } else {
+    affichageErreur('mail',"ADD");
+  }
+  return false;
+}
+
+function checkString(elementID) {
+  // const regex = /[a-zA-Z-\s]{2,}/mg;
+  const regex = /^[a-zA-Z-\s]{2,}$/mg;
+
+  const valueOfInput = document.getElementById(elementID).value;
+  if(regex.test(valueOfInput)){
+    affichageErreur(elementID,"DEL")
+    return true
+  }else{
+    affichageErreur(elementID,"ADD")
+    return false
+  }
+}
+
+function checkTextarea(){
+  const regex = /\w[a-zA-Z0-9-.\s]{2,}/mg;
+  const valueOfTextarea = document.getElementById('message').value
+  if(regex.test(valueOfTextarea)){
+    affichageErreur("message","DEL")
+    return true
+  }else{
+    affichageErreur("message","ADD")
+    return false
+  }
+}

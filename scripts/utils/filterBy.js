@@ -2,8 +2,6 @@
 import {mediaFilterbyUser} from '../pages/photographer.js'
 import displayMedia from '../pages/photographer.js'
 
-console.log("Fichier filterBy chargé");
-
 let media = localStorage.getItem("medias")
 let mediaFiltre
 if(media===null){
@@ -17,6 +15,7 @@ if(media===null){
 
 // permet d'attendre la génération des medias pour leur attribuer un data-set
 setTimeout(setDataIndexNumber,300)
+
 
 
 const btnFilter = document.querySelector('.btn-filter');
@@ -39,7 +38,6 @@ export default function modifyLike(likeID,option){
             element.likes --
         }
     })
-    console.log(mediaFiltre);
 }
 
 
@@ -179,6 +177,15 @@ function setDataIndexNumber(){
     let indice =0
     arrayOfMedia.forEach(media=>{
         media.setAttribute("Data-index-number",indice)
+        const mediaId = media.getAttribute("data-media-id")
         indice++
+        let storageMedia = localStorage.getItem(mediaId)
+        if(storageMedia===null){
+            console.log("Pas de LocalStorage pour ce trigger");
+            let trigger = { trigger : false}
+            let valeurTrigger = JSON.stringify(trigger)
+            localStorage.setItem(mediaId,valeurTrigger)
+        }
     })
 }
+

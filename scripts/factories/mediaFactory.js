@@ -35,31 +35,47 @@ export function mediaFactory(data) {
         media.setAttribute("data-media-id",id);
         media.setAttribute("tabindex",0)
         media.setAttribute("aria-label",`Titre: ${title}, ${likes} personnes aiment ce média`)
+        media.setAttribute("role","img")
+        
         media.addEventListener('click',()=>{
             showLightbox(id)
-            console.log("Media click");
         })
+        media.addEventListener('keydown',event =>{
+            if(event.key==='Enter'){
+                showLightbox(id)
+            }
+        })
+
 
         link.appendChild(media);
 
         mediaName.textContent = title;
-        let heartTrigger = false
+        //let heartTrigger = false
         numberOfLike.textContent = likes;
         numberOfLike.setAttribute("class",'number-of-likes')
         heart.setAttribute("class",'fa-solid fa-heart')
-        heart.setAttribute("aria-label",'likes')
+        heart.setAttribute("aria-label",'Ajouter un likes')
         heart.setAttribute("tabindex",0)
+        heart.setAttribute("role","button")
 
         // permet d'incrementer ou décrementer le nombre de likes associé au coeur
         heart.addEventListener('click',()=>{
-            if(heartTrigger){
+            let heartTrigger = JSON.parse(localStorage.getItem(id))
+            console.log(heartTrigger.trigger);
+            if(heartTrigger.trigger === true){
                 numberOfLike.textContent --
-                heartTrigger = false
+                heartTrigger.trigger = false
+                let returnValue = { trigger : false}
+                let returnValueStringify = JSON.stringify(returnValue)
+                localStorage.setItem(id, returnValueStringify)
                 modifyLike(id,'DEC')
                 getLikes()
             } else {
                 numberOfLike.textContent ++
-                heartTrigger = true
+                heartTrigger.trigger = true
+                let returnValue = { trigger : true}
+                let returnValueStringify = JSON.stringify(returnValue)
+                localStorage.setItem(id, returnValueStringify)
                 modifyLike(id,'INC')
                 getLikes()
                 
@@ -67,18 +83,28 @@ export function mediaFactory(data) {
         })
 
         heart.addEventListener('keydown',(e)=>{
-            if(heartTrigger && e.key ==='Enter'){
-                numberOfLike.textContent --
-                heartTrigger = false
-                modifyLike(id,'DEC')
-                getLikes()
-            } else if(e.key ==='Enter'){
-                numberOfLike.textContent ++
-                heartTrigger = true
-                modifyLike(id,'INC')
-                getLikes()
-                
-            }
+            let heartTrigger = JSON.parse(localStorage.getItem(id))
+            console.log(heartTrigger.trigger);
+            if(e.key ==='Enter'){
+                if(heartTrigger.trigger === true){
+                    numberOfLike.textContent --
+                    heartTrigger.trigger = false
+                    let returnValue = { trigger : false}
+                    let returnValueStringify = JSON.stringify(returnValue)
+                    localStorage.setItem(id, returnValueStringify)
+                    modifyLike(id,'DEC')
+                    getLikes()
+                } else {
+                    numberOfLike.textContent ++
+                    heartTrigger.trigger = true
+                    let returnValue = { trigger : true}
+                    let returnValueStringify = JSON.stringify(returnValue)
+                    localStorage.setItem(id, returnValueStringify)
+                    modifyLike(id,'INC')
+                    getLikes()
+                    
+                }
+            } 
         })
 
         info.appendChild(mediaName)

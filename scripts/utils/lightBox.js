@@ -1,6 +1,12 @@
+const mainElements = document.querySelector('main')
 const lightBox = document.getElementById('light-box')
 const closeBtn = document.querySelector('.light-box-close')
 closeBtn.addEventListener('click', closeLightbox)
+closeBtn.addEventListener('keydown', event=>{
+    if(event.key==='Enter'){
+        closeLightbox()
+    }
+})
 const mediaBox = document.querySelector('.media-light-box')
 const nextMediaBtn = document.querySelector('#btn-next-media')
 nextMediaBtn.addEventListener('click',nextMedia)
@@ -19,10 +25,8 @@ lightBox.addEventListener('keydown', event =>{
         event.key === 'Space' ||
         event.key === 'Escape') &&
        event.preventDefault();
-
     if(event.key === "Escape"){
        closeLightbox()
-       console.log("bouton echap pressed");
     } else if(event.key === "ArrowLeft"){
         previousMedia()
     } else if(event.key === "ArrowRight"){
@@ -34,13 +38,8 @@ lightBox.addEventListener('keydown', event =>{
 const firstFocusableElement = lightBox.querySelectorAll(focusableElements)[0]; // Récupère le premier élement focussable dans la LightBox
 const focusableContent = lightBox.querySelectorAll(focusableElements);
 const lastFocusableElement = focusableContent[focusableContent.length - 1]; // Récupère le dernier élement focussable dans la LightBox
-lightBox.addEventListener('keydown', function(e) {
-    
+lightBox.addEventListener('keydown', function(e) {  
     let isTabPressed = e.key === 'Tab' || e.keyCode === 9;
-    //Ferme la modale si ECHAP est utilisé
-    if(e.key === "Escape"){
-        closeLightbox()
-    }
     // Sort de la boucle si TAB n'est pas utilisé
     if (!isTabPressed) {
       return;
@@ -63,6 +62,7 @@ export function showLightbox(mediaId){
     // Affiche la LightBox
     lightBox.style.display = "flex"
     lightBox.setAttribute("aria-hidden",false)
+    mainElements.setAttribute("aria-hidden",true)
     // Le focus est placé sur le bouton previous
     previousMediaBtn.focus()
     // Permet de récupérer la taille maximale du tableau
@@ -73,16 +73,26 @@ export function showLightbox(mediaId){
     indexNumber = mediaToShow.getAttribute("data-index-number")
 
     const copyMedia = mediaToShow.cloneNode()
+    const titleElement = document.createElement("p")
+    const titleFromCopy = copyMedia.getAttribute("alt")
+    titleElement.textContent = titleFromCopy
     copyMedia.setAttribute("controls","")
 
     mediaBox.appendChild(copyMedia)
+    mediaBox.appendChild(titleElement)
 }
+
 /////// FONCTION DE FERMETURE DE LA LIGHTBOX ///////
 function closeLightbox(){
+    const mediaToReturnFocus = document.querySelector(`[data-index-number="${indexNumber}"]`)
+    mediaToReturnFocus.focus()
     indexNumber=0
     mediaBox.innerHTML = ''  
     lightBox.style.display = "none"
+    lightBox.setAttribute("aria-hidden",true)
+    mainElements.setAttribute("aria-hidden",false)
 }
+
 /////// FONCTION DU BOUTON NEXT DE LA LIGHTBOX ///////
 function nextMedia(){
     if(indexNumber>=arrayOfIndexLength-1){
@@ -94,10 +104,16 @@ function nextMedia(){
 
     const copyMedia = mediaToShow.cloneNode()
     copyMedia.setAttribute("controls","")
+    const titleElement = document.createElement("p")
+    const titleFromCopy = copyMedia.getAttribute("alt")
+    titleElement.textContent = titleFromCopy
 
     mediaBox.innerHTML=""
     mediaBox.appendChild(copyMedia)
+    mediaBox.appendChild(titleElement)
+
 }
+
 /////// FONCTION DU BOUTON PREVIOUS DE LA LIGHTBOX ///////
 function previousMedia(){
     if(indexNumber==0){
@@ -109,7 +125,12 @@ function previousMedia(){
 
     const copyMedia = mediaToShow.cloneNode()
     copyMedia.setAttribute("controls","")
+    const titleElement = document.createElement("p")
+    const titleFromCopy = copyMedia.getAttribute("alt")
+    titleElement.textContent = titleFromCopy
 
     mediaBox.innerHTML=""
     mediaBox.appendChild(copyMedia)
+    mediaBox.appendChild(titleElement)
+
 }

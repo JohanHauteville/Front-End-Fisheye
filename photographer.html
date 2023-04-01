@@ -56,7 +56,6 @@
 
       </section>
     </main>
-    <!-- <dialog id="contact_modal"> -->
     <div id="contact_modal" tabindex="-1" role="dialog" aria-describedby="modal-title">
 			<div class="modal"> 
         <!-- modif balise header -->
@@ -70,56 +69,73 @@
         method="post"
         >
 					<!-- <div> -->
-            <label  for="first">Prénom</label><br>
-            <input
-              id="first"
-              aria-labelledby="first"
-              type="text"
-              name="first"
-              minlength="2"
-              required
-            />
-            <label  for="last">Nom</label><br>
-            <input
-              id="last"
-              aria-labelledby="last"
-              type="text"
-              name="last"
-              minlength="2"
-              required
-            />
-            <label  for="mail">Email</label><br>
-            <input
-              id="mail"
-              aria-labelledby="mail"
-              type="email"
-              name="mail"
-              minlength="2"
-              required
-            />
-            <label  for="message">Votre message</label><br>
-            <textarea
-              id="message"
-              aria-labelledby="message"
-              name="message"
-              minlength="2"
-
-            ></textarea>
+            <div class="form-data">
+              <label  for="first">Prénom</label><br>
+              <input
+                id="first"
+                aria-labelledby="first"
+                type="text"
+                name="first"
+                required
+                placeholder=" "
+                pattern="[a-zA-Z-\s]{2,}"
+              />
+              <i class="fa-solid fa-check input-valid"></i>
+              <i class="fa-solid fa-triangle-exclamation input-invalid"></i>
+              <!-- <i class="fa-solid fa-check input-valid"></i> -->
+            </div>
+            <div class="form-data">
+              <label  for="last">Nom</label><br>
+              <input
+                id="last"
+                aria-labelledby="last"
+                type="text"
+                name="last"
+                required
+                placeholder=" "
+                pattern="[a-zA-Z-\s]{2,}"
+              />
+              <i class="fa-solid fa-triangle-exclamation input-invalid"></i>
+              <i class="fa-solid fa-check input-valid"></i>
+            </div>
+            <div class="form-data">
+              <label  for="mail">Email</label><br>
+              <input
+                id="mail"
+                aria-labelledby="mail"
+                type="email"
+                name="mail"
+                minlength="2"
+                required
+                placeholder=" "
+                pattern="^([a-zA-Z0-9-.]+)(@)([a-zA-Z-]+)\.([a-zA-Z]{2,3})$"
+              />
+              <i class="fa-solid fa-triangle-exclamation input-invalid"></i>
+              <i class="fa-solid fa-check input-valid"></i>
+            </div>
+            <div class="form-data">
+              <label  for="message">Votre message</label><br>
+              <textarea
+                id="message"
+                aria-labelledby="message"
+                name="message"
+                required                
+              ></textarea>
+              <i class="fa-solid fa-triangle-exclamation input-invalid"></i>
+              <i class="fa-solid fa-check input-valid"></i>
+            </div>
 					<!-- </div> -->
           <button class="send_button" type="submit" aria-label="Send">Envoyer</button>
 				</form>
 			</div>
 		</div>
 
-    <div id="light-box" tabindex="-1"> 
-      <i id="btn-previous-media" class="fa-solid fa-chevron-left previous-media" tabindex="0"></i>
+    <div id="light-box" tabindex="-1" role="dialog" aria-label="image closeup view"> 
+      <i id="btn-previous-media" aria-label="Previous image" class="fa-solid fa-chevron-left previous-media" tabindex="0"></i>
       <div class="media-light-box"></div>
-      <i id="btn-next-media" class="fa-solid fa-chevron-right next-media" tabindex="0"></i>
-      <i class="fa-solid fa-xmark light-box-close" tabindex="0"></i>
-      <!-- <img src="assets/icons/close.svg" class="light-box-close" alt="Fermer la lightbox" tabindex="0"/> -->
-
+      <i id="btn-next-media" aria-label="Next image" class="fa-solid fa-chevron-right next-media" tabindex="0"></i>
+      <i class="fa-solid fa-xmark light-box-close" aria-label="Close lightBox" tabindex="0"></i>
     </div>
-  <!-- </dialog> -->
     <script type="module" src="scripts/pages/photographer.js"></script>
     <script type="module" src="scripts/utils/contactForm.js"></script>
     <script type="module" src="scripts/utils/lightBox.js" ></script>
