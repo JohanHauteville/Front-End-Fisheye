@@ -35,51 +35,66 @@ function closeModal() {
   btn.focus()
 }
 
-export function sendData() {
+
+function sendData() {
   if (
+    // Vérification de chacun des champs
     checkTextarea() &
     checkString("first") &
     checkString("last") &
     checkEmail()
   ) {
-
+    // Affiche les données du formulaire
     console.log(`Envoi du formulaire:
     Prénom: ${inputOfFirst.value}
     Nom: ${inputOfLast.value}
     Email: ${inputOfMail.value}
     Message: ${inputOfMessage.value}
     `);
+    // ferme la modale
     closeModal()
+    // Vide les données une fois envoyées
     inputOfFirst.value = ""
     inputOfLast.value = ""
     inputOfMail.value = ""
     inputOfMessage.value = ""
   }
+  // bloque le comportement par défault du formulaire (recharge de la pagee,...)
   event.preventDefault()
 
 }
 
-const firstFocusableElement = modal.querySelectorAll(focusableElements)[0]; // get first element to be focused inside modal
-const focusableContent = modal.querySelectorAll(focusableElements);
-const lastFocusableElement = focusableContent[focusableContent.length - 1]; // get last element to be focused inside modal
+// On récupère le premier element focussable de notre modale
+const firstFocusableElement = modal.querySelectorAll(focusableElements)[0];
 
+// On récupère l'intégralité des élements focussable de notre modale
+const focusableContent = modal.querySelectorAll(focusableElements);
+
+// On récupère le dernier élement focussable de notre modale
+const lastFocusableElement = focusableContent[focusableContent.length - 1];
+
+// EVENT LISTENER POUR LES TOUCHES DU CLAVIER DANS LA MODALE
 modal.addEventListener('keydown', function (e) {
 
   let isTabPressed = e.key === 'Tab' || e.keyCode === 9;
+
   //Ferme la modale si ECHAP est utilisé
   if (e.key === "Escape") {
     closeModal()
   }
+
   // Sort de la boucle si TAB n'est pas utilisé
   if (!isTabPressed) {
     return;
   }
-  if (e.shiftKey) { // Si SHIFT + TAB est utilisé
-    if (document.activeElement === firstFocusableElement) {
-      lastFocusableElement.focus(); // Le focus est mis sur le dernier elementde la modale
+
+  // Si SHIFT + TAB est utilisé...
+  if (e.shiftKey) { 
+    if (document.activeElement === firstFocusableElement) {//... et si on arrive au premier élément de la modale
+      lastFocusableElement.focus(); // Le focus est mis sur le dernier element de la modale
       e.preventDefault();
     }
-  } else { // Si TAB est utilisé...
+  } else { // Si TAB est utilisé ...
     if (document.activeElement === lastFocusableElement) { //... et si en utilisant TAB on arrive au dernier élément de la modale
       firstFocusableElement.focus(); // Le focus cible alors le premier élément de la modale
       e.preventDefault();
@@ -87,6 +102,7 @@ modal.addEventListener('keydown', function (e) {
   }
 });
 
+// Lance la vérification du champs quand on sort de celui-ci
 inputOfFirst.addEventListener('focusout', () => {
   checkString("first")
 })
@@ -100,15 +116,13 @@ inputOfMessage.addEventListener('focusout', checkTextarea)
 
 // fonction d'affichage / désaffichage d'un champs incorrect
 function affichageErreur(inputId, text) {
-  if (text === "DEL") {    // Si la chaine est vide alors on supprime l'affichage de l'erreur
+  if (text === "DEL") {    // On supprime l'affichage de l'erreur
     document.getElementById(inputId).removeAttribute("data-error-visible");
     document.getElementById(inputId).setAttribute("data-valid-visible", "");
 
-
-  } else if (text === "ADD") {   // Sinon on affiche l'erreur avece le texte entré
+  } else if (text === "ADD") {   // On affiche l'erreur 
     document.getElementById(inputId).setAttribute("data-error-visible", "");
     document.getElementById(inputId).removeAttribute("data-valid-visible");
-
   }
 }
 
@@ -128,8 +142,8 @@ function checkEmail() {
   return false;
 }
 
+// fonction de contrôle d'une chaine
 function checkString(elementID) {
-  // const regex = /[a-zA-Z-\s]{2,}/mg;
   const regex = /^[a-zA-Z-\s]{2,}$/mg;
 
   const valueOfInput = document.getElementById(elementID).value;
@@ -142,6 +156,7 @@ function checkString(elementID) {
   }
 }
 
+// fonction de contrôle du message
 function checkTextarea() {
   const regex = /\w[a-zA-Z0-9-.\s]{2,}/mg;
   const valueOfTextarea = document.getElementById('message').value
