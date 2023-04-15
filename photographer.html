@@ -16,7 +16,6 @@
     </header>
     <main id="main">
       <div class="photograph-header">
-        <!-- <button class="contact_button" onclick="displayModal()">Contactez-moi</button> -->
         <button 
         class="contact_button" 
         aria-label="contact me"
@@ -45,9 +44,7 @@
           aria-activedescendant="popularity"
           >
             <li role="option" aria-selected="false" id="popularity">Popularité<i class="fa-solid fa-chevron-up"></i></li>
-            <!-- <hr aria-hidden="true"> -->
             <li role="option" aria-selected="false" id="date" >Date</li>
-            <!-- <hr aria-hidden="true"> -->
             <li role="option" aria-selected="false" id="title" >Titre</li>
           </ul>
         </div>
@@ -131,10 +128,10 @@
 		</div>
 
     <div id="light-box" tabindex="-1" role="dialog" aria-label="image closeup view"> 
-      <i id="btn-previous-media" aria-label="Previous image" class="fa-solid fa-chevron-left previous-media" tabindex="0"></i>
+      <i id="btn-previous-media" role="button" aria-label="Previous image" class="fa-solid fa-chevron-left previous-media" tabindex="0"></i>
       <div class="media-light-box"></div>
-      <i id="btn-next-media" aria-label="Next image" class="fa-solid fa-chevron-right next-media" tabindex="0"></i>
-      <i class="fa-solid fa-xmark light-box-close" aria-label="Close lightBox" tabindex="0"></i>
+      <i id="btn-next-media" role="button" aria-label="Next image" class="fa-solid fa-chevron-right next-media" tabindex="0"></i>
+      <i class="fa-solid fa-xmark light-box-close" role="button" aria-label="Close lightBox" tabindex="0"></i>
     </div>
     <script type="module" src="scripts/pages/photographer.js"></script>
     <script type="module" src="scripts/utils/contactForm.js"></script>

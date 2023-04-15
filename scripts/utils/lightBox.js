@@ -111,7 +111,6 @@ function nextMedia(){
     mediaBox.innerHTML=""
     mediaBox.appendChild(copyMedia)
     mediaBox.appendChild(titleElement)
-
 }
 
 /////// FONCTION DU BOUTON PREVIOUS DE LA LIGHTBOX ///////
