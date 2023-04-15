@@ -55,17 +55,17 @@
     </main>
     <div id="contact_modal" tabindex="-1" role="dialog" aria-describedby="modal-title">
 			<div class="modal"> 
-        <!-- modif balise header -->
+
 				<header> 
           <h2 id="modal-title" tabindex="0">Contactez-moi</h2>
-          <!-- <img src="assets/icons/close.svg" onclick="closeModal()" /> -->
+
           <img src="assets/icons/close.svg" class="contact-close" alt="Fermer le formulaire" tabindex="0"/>
 
         </header>
 				<form
         method="post"
         >
-					<!-- <div> -->
+
             <div class="form-data">
               <label  for="first">Prénom</label><br>
               <input
@@ -75,11 +75,11 @@
                 name="first"
                 required
                 placeholder=" "
-                pattern="[a-zA-Z-\s]{2,}"
+                
               />
               <i class="fa-solid fa-check input-valid"></i>
               <i class="fa-solid fa-triangle-exclamation input-invalid"></i>
-              <!-- <i class="fa-solid fa-check input-valid"></i> -->
+
             </div>
             <div class="form-data">
               <label  for="last">Nom</label><br>
@@ -90,7 +90,7 @@
                 name="last"
                 required
                 placeholder=" "
-                pattern="[a-zA-Z-\s]{2,}"
+                
               />
               <i class="fa-solid fa-triangle-exclamation input-invalid"></i>
               <i class="fa-solid fa-check input-valid"></i>
@@ -105,7 +105,7 @@
                 minlength="2"
                 required
                 placeholder=" "
-                pattern="^([a-zA-Z0-9-.]+)(@)([a-zA-Z-]+)\.([a-zA-Z]{2,3})$"
+                
               />
               <i class="fa-solid fa-triangle-exclamation input-invalid"></i>
               <i class="fa-solid fa-check input-valid"></i>
@@ -121,7 +121,7 @@
               <i class="fa-solid fa-triangle-exclamation input-invalid"></i>
               <i class="fa-solid fa-check input-valid"></i>
             </div>
-					<!-- </div> -->
+
           <button class="send_button" type="submit" aria-label="Send">Envoyer</button>
 				</form>
 			</div>

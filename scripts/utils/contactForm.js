@@ -1,3 +1,5 @@
+//*********    CODE DU FORMULAIRE DE CONTACT    *********//
+
 const btn = document.querySelector('.contact_button')
 const btnClose = document.querySelector('.contact-close')
 const titleModal = document.getElementById('modal-title');
