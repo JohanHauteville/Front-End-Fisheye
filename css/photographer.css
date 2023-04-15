@@ -103,12 +103,23 @@ select {
     z-index: 2;
 }
 
+.btn-filter:hover,
+.btn-filter:focus,
+.list-filter:hover,
+.list-filter:focus{
+    background-color: #D3573C;
+    border: 2px solid #D3573C;
+    color: #000;
+}
+
 .btn-filter i,
 .list-filter i {
     position: absolute;
     right: 10px;
     top: 15px;
 }
+
+
 
 .list-filter {
     z-index: 3;
@@ -138,6 +149,18 @@ select {
     border-top: 1px solid #fff;
     margin-top: 15px;
 }
+
+.list-filter:hover li:nth-child(1):after,
+.list-filter:hover li:nth-child(2):after,
+.list-filter:focus li:nth-child(1):after,
+.list-filter:focus li:nth-child(2):after {
+    content: '';
+    display: block;
+    width: 100%;
+    border-top: 1px solid #000;
+    margin-top: 15px;
+}
+
 
 
 option {
@@ -214,6 +237,11 @@ option {
     background-color: #901C1C;
     border-radius: 5px;
     cursor: pointer;
+}
+
+.contact_button:hover,.contact_button:focus{
+    background-color: #D3573C;
+    color: #000;
 }
 
 .modal {
