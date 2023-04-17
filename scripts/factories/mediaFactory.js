@@ -90,7 +90,6 @@ export function mediaFactory(data) {
         // même chose mais avec le clavier
         heart.addEventListener('keydown', (e) => {
             let heartTrigger = JSON.parse(localStorage.getItem(id))
-            console.log(heartTrigger.trigger);
             if (e.key === 'Enter') {
                 if (heartTrigger.trigger === true) {
                     numberOfLike.textContent--

@@ -106,7 +106,7 @@ select {
 .btn-filter:hover,
 .btn-filter:focus,
 .list-filter:hover,
-.list-filter:focus{
+.list-filter:focus {
     background-color: #D3573C;
     border: 2px solid #D3573C;
     color: #000;
@@ -239,7 +239,8 @@ option {
     cursor: pointer;
 }
 
-.contact_button:hover,.contact_button:focus{
+.contact_button:hover,
+.contact_button:focus {
     background-color: #D3573C;
     color: #000;
 }
